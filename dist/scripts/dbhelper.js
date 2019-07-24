@@ -34,7 +34,7 @@ class DBHelper {
             if (error) {
                 callback(error, null);
             } else {
-                const restaurant = restaurants[id];
+                const restaurant = restaurants[id - 1];
                 if (restaurant) { // Got the restaurant
                     callback(null, restaurant);
                 } else { // Restaurant does not exist in the database
@@ -145,7 +145,7 @@ class DBHelper {
      * Restaurant image URL.
      */
     static imageUrlForRestaurant(restaurant) {
-        return (`/images/${restaurant.photograph}.jpg`);
+        return (`/images/${restaurant.id}.jpg`);
     }
 
     /**
