@@ -1,0 +1,32 @@
+{
+    "name": "mws-project-2",
+    "version": "1.0.0",
+    "description": "Udacity's MWS Final Project",
+    "private": "true",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "webpack --watch",
+        "start": "webpack-dev-server --open",
+        "build": "webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BocianAJ/mws-final-project.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/BocianAJ/mws-final-project/issues"
+    },
+    "homepage": "https://github.com/BocianAJ/mws-final-project#readme",
+    "devDependencies": {
+        "webpack": "^4.35.2",
+        "webpack-cli": "^3.3.5",
+        "webpack-dev-server": "^3.7.2"
+    },
+    "dependencies": {
+        "idb": "^4.0.3",
+        "lodash": "^4.17.14"
+    }
+}
