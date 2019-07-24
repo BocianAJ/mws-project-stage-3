@@ -152,7 +152,7 @@ class DBHelper {
      * Restaurant image srcset attribute.
      */
     static imageUrlSetForRestaurant(restaurant) {
-        return (`/images/200w-${restaurant.photograph}.jpg 200w, /images/400w-${restaurant.photograph}.jpg 400w, /images/600w-${restaurant.photograph}.jpg 600w, /images/${restaurant.photograph}.jpg 800w`);
+        return (`/images/200w-${restaurant.id}.jpg 200w, /images/400w-${restaurant.id}.jpg 400w, /images/600w-${restaurant.id}.jpg 600w, /images/${restaurant.id}.jpg 800w`);
     }
 
     /**
