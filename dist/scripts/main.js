@@ -9,12 +9,9 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-    console.log("DOMContentLoaded-start");
     initMap();
     fetchNeighborhoods();
     fetchCuisines();
-    console.log("DOMContentLoaded-end");
-
 });
 
 /**
@@ -76,7 +73,6 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  * Initialize leaflet map, called from HTML.
  */
 initMap = () => {
-    console.log("initMap");
     self.newMap = L.map('map', {
         center: [40.722216, -73.987501],
         zoom: 12,
@@ -98,7 +94,6 @@ initMap = () => {
  * Update page and map for current restaurants.
  */
 updateRestaurants = () => {
-    console.log("updateRestaurants-start");
     const cSelect = document.getElementById('cuisines-select');
     const nSelect = document.getElementById('neighborhoods-select');
 
