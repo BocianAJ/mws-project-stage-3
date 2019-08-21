@@ -75,9 +75,14 @@ section {
 }
 
 /* Focused links and buttons */
-a:focus, button:focus, select:focus, option:focus {
+
+a:focus,
+button:focus,
+select:focus,
+option:focus {
     outline: red 3px solid;
 }
+
 /* ====================== Navigation ====================== */
 
 nav {
@@ -121,25 +126,30 @@ nav.breadcrumb {
 }
 
 .skip-link {
-    position:absolute;
-    left:-2000px;
-    top:3px;
+    position: absolute;
+    left: -2000px;
+    top: 3px;
     z-index: 100;
     background: #3397DB;
-    color:#fff;
+    color: #fff;
     padding: 0.5em 1em;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.skip-link:focus { 
-    left:3px;
+
+.skip-link:focus {
+    left: 3px;
 }
+
 a.skip-link:hover {
-    background:#2b7cb4;
+    background: #2b7cb4;
 }
-a.skip-link:hover, a.skip-link:focus {
-    color:#fff;
+
+a.skip-link:hover,
+a.skip-link:focus {
+    color: #fff;
 }
+
 /* Display list items side by side */
 
 #breadcrumb li {
@@ -180,12 +190,13 @@ a.skip-link:hover, a.skip-link:focus {
 
 .filter-options {
     width: 100%;
-    padding:10px;
+    padding: 10px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     /* height: 50px; - removing to make it responsive */
     background-color: #1C6AA1;
-    display: -webkit-box; /* for centering its elements */
+    display: -webkit-box;
+    /* for centering its elements */
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
@@ -197,9 +208,11 @@ a.skip-link:hover, a.skip-link:focus {
 
 .filter-options h2 {
     color: white;
-    font-size: 1.3rem; /* Making the 'filter' header more visible */
+    font-size: 1.3rem;
+    /* Making the 'filter' header more visible */
     font-weight: normal;
-    width: 100%; /* making it fill the whole width as a flex element */
+    width: 100%;
+    /* making it fill the whole width as a flex element */
     text-align: center;
     line-height: 1;
     margin: 10px;
@@ -216,6 +229,7 @@ a.skip-link:hover, a.skip-link:focus {
     padding: 0 10px;
     width: 200px;
 }
+
 /* ====================== Restaurant Listing ====================== */
 
 #restaurants-list {
@@ -233,12 +247,14 @@ a.skip-link:hover, a.skip-link:focus {
     margin: 5% 2%;
     /* min-height: 380px; - removing for responsivness */
     padding: 3%;
-    width: auto; /* Making the box responsive */    
+    width: auto;
+    /* Making the box responsive */
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex; /* Distributing content evenly throughout the containing box */
+    display: flex;
+    /* Distributing content evenly throughout the containing box */
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -255,7 +271,8 @@ a.skip-link:hover, a.skip-link:focus {
     background-color: #ccc;
     display: block;
     margin: 0;
-    width: 100%; /* making the image responsive */
+    width: 100%;
+    /* making the image responsive */
 }
 
 #restaurants-list li h3 {
@@ -286,16 +303,19 @@ a.skip-link:hover, a.skip-link:focus {
     text-decoration: none;
     text-transform: uppercase;
 }
-#restaurants-list li a:hover, #restaurants-list li a:focus {
-    background-color: #BD4600; 
+
+#restaurants-list li a:hover,
+#restaurants-list li a:focus {
+    background-color: #BD4600;
 }
+
 /* ====================== Restaurant Details ====================== */
 
 .inside header {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .inside #map-container {
@@ -352,14 +372,16 @@ a.skip-link:hover, a.skip-link:focus {
 }
 
 #restaurant-container,
-#reviews-container {
+#reviews-container,
+#review-form-container {
     border-bottom: 1px solid #d9d9d9;
     border-top: 1px solid #fff;
     padding: 8% 4% 4%;
 }
 
 
-#reviews-container h2 {
+#reviews-container h2,
+#review-form-container h2 {
     color: #f58500;
     font-size: 24pt;
     font-weight: 300;
@@ -397,23 +419,28 @@ a.skip-link:hover, a.skip-link:focus {
 }
 
 /* Review content */
+
 #reviews-list li p.reviewer {
-    font-size:1.2em;
-    color:#fff;
+    font-size: 1.2em;
+    color: #fff;
 }
-#reviews-list li p.review-date { 
+
+#reviews-list li p.review-date {
     text-align: right;
-    color:#ddd;
+    color: #ddd;
 }
-#reviews-list li p.reviewer, #reviews-list li p.review-date {
+
+#reviews-list li p.reviewer,
+#reviews-list li p.review-date {
     background-color: #000;
     float: left;
-    width:50%;
+    width: 50%;
     padding-bottom: 0;
-    height:45px;
+    height: 45px;
     padding-top: 15px;
     line-height: 15px;
 }
+
 #reviews-list li p.review-rating {
     color: #fff;
     background-color: orange;
@@ -426,23 +453,98 @@ a.skip-link:hover, a.skip-link:focus {
     line-height: 1em;
 }
 
+
+/* ====================== Review Form Details ====================== */
+
+#review-form {
+    background-color: #fff;
+    border: 2px solid #f3f3f3;
+    display: block;
+    list-style-type: none;
+    margin: 0 0 30px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    border-radius: 2em;
+}
+
+label[for="name"] {
+    padding-top: 30px;
+}
+
+#review-form label,
+#review-form input,
+#review-form select,
+#review-form textarea {
+    margin: 0 20px 30px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+label[for="name"],
+input#name,
+textarea#comment,
+input#submit {
+    display: block;
+}
+
+label[for="rating"],
+selct#rating {
+    display: inline-block;
+}
+
+#review-form label,
+#review-form input[type="text"],
+#review-form select {
+    font-size: 1.2em;
+    line-height: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: calc(100% - 40px);
+
+}
+
+textarea#comment {
+    width: calc(100% - 40px);
+    height: 250px;
+    padding: 1em;
+}
+
+input#submit {
+    color: #fff;
+    background-color: orange;
+    border-radius: 0.2em;
+    text-transform: uppercase;
+    overflow: hidden;
+    padding: 10px;
+    line-height: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    float: right;
+
+}
+
+
 /* 2.0 Responsive design - for tablets, laptops */
-@media screen and (min-width: 551px) { 
+
+@media screen and (min-width: 551px) {
     /* Making the restaurant list elements display a couple in a row */
     #restaurants-list {
-        display:-webkit-box;
-        display:-ms-flexbox;
-        display:flex;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
-    #restaurants-list li { 
-        width:46%;
+    #restaurants-list li {
+        width: 46%;
         margin-top: 1rem;
         margin-bottom: 1rem;
         padding: 2%;
     }
 }
+
 
 @media screen and (min-width: 651px) {
     /* ====================== Navigation ====================== */
@@ -451,15 +553,16 @@ a.skip-link:hover, a.skip-link:focus {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
-    
+
     /* ====================== Restaurant Listing ====================== */
-        #restaurant-container { 
-            padding-top:150px;
-        }
-        #reviews-container { 
-            padding-top:3em;
-        }
-    
+    #restaurant-container {
+        padding-top: 150px;
+    }
+    #reviews-container,
+    #review-form-container {
+        padding-top: 3em;
+    }
+
     /* ====================== Restaurant Details ====================== */
     .inside #map-container {
         width: 50%;
@@ -478,7 +581,8 @@ a.skip-link:hover, a.skip-link:focus {
         width: 50%;
     }
     #restaurant-container,
-    #reviews-container {
+    #reviews-container,
+    #review-form-container {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         width: 50%;
@@ -486,22 +590,20 @@ a.skip-link:hover, a.skip-link:focus {
 }
 
 
-@media screen and (min-width: 751px) { 
-/* ====================== Restaurant Listing ====================== */
-    
+@media screen and (min-width: 751px) {
+    /* ====================== Restaurant Listing ====================== */
     /* Making the restaurant list elements display 3 in a row */
-     #restaurants-list li { 
-        width:29.333%;
+    #restaurants-list li {
+        width: 29.333%;
     }
 }
 
 
-@media screen and (min-width: 951px) { 
-/* ====================== Restaurant Listing ====================== */
-    
+@media screen and (min-width: 951px) {
+    /* ====================== Restaurant Listing ====================== */
     /* Making the restaurant list elements display 4 in a row */
-     #restaurants-list li { 
-        width:23%;
+    #restaurants-list li {
+        width: 23%;
         margin-left: 1%;
         margin-right: 1%;
         padding: 1%;
@@ -509,17 +611,16 @@ a.skip-link:hover, a.skip-link:focus {
 }
 
 
-@media screen and (min-width: 1151px) { 
-/* ====================== Restaurant Listing ====================== */
-    
+@media screen and (min-width: 1151px) {
+    /* ====================== Restaurant Listing ====================== */
     /* Making the restaurant list elements display 5 in a row */
-     #restaurants-list li { 
-        width:18%;
+    #restaurants-list li {
+        width: 18%;
     }
 }
 
-@media screen and (min-width: 1400px) { 
-/* Centering and limiting the width of page content */
+@media screen and (min-width: 1400px) {
+    /* Centering and limiting the width of page content */
     /* ====================== Restaurant Listing ====================== */
     #restaurants-list {
         max-width: 1400px;
@@ -527,7 +628,7 @@ a.skip-link:hover, a.skip-link:focus {
     }
     /* ====================== Restaurant Page ====================== */
     .inside {
-        background-color: #eeeeee; 
+        background-color: #eeeeee;
     }
     .inside #breadcrumb {
         max-width: 700px;
@@ -539,7 +640,7 @@ a.skip-link:hover, a.skip-link:focus {
     }
     .inside #map-container {
         max-width: 700px;
-        left: 50%;  
+        left: 50%;
     }
     .inside #footer {
         max-width: 700px;
