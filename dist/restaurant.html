@@ -9,7 +9,7 @@
     <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
     <!-- Main CSS file -->
     <link rel="stylesheet" href="styles/styles.css" type="text/css">
-    <link rel="stylesheet" href="styles/leaflet.css"/>
+    <link rel="stylesheet" href="styles/leaflet.css" />
     <link rel="shortcut icon" href="/images/icons/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/icons/favicon.ico" type="image/x-icon">
 
@@ -59,7 +59,28 @@
         <section id="reviews-container">
             <ul id="reviews-list"></ul>
         </section>
+        <section id="review-form-container">
+            <!-- Beginning add review form -->
+            <h2>Add review</h2>
+            <form id="review-form">
+                <label for="name">Name: </label>
+                <input id="name" name="name" type="text" />
+                <label for="rating">Restaurant rating: </label>
+                <select id="rating" name="rating" aria-label="Restaurant rating selection">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <textarea id="comment" name="comment" placeholder="comment..."></textarea>
+                <input id="submit" type="submit" value="Submit">
+            </form>
+            <!-- End add review form -->
+        </section>
         <!-- End reviews -->
+
+
     </main>
     <!-- End main -->
 
