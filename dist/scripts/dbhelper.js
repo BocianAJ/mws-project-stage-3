@@ -1,33 +1,60 @@
 /**
  * Common database helper functions.
  */
+
 class DBHelper {
 
     /**
      * Database URL.
      * Change this to restaurants.json file location on your server.
      */
-    static get DATABASE_URL() {
+    static get RESTAURANT_DATABASE_URL() {
         const port = 1337 // Change this to your server port
         return `http://localhost:${port}/restaurants/`;
+    }
+
+    static get REVIEWS_DATABASE_URL() {
+        const port = 1337 // Change this to your server port
+        return `http://localhost:${port}/reviews/`;
     }
 
     /**
      * Fetch all restaurants.
      */
     static fetchRestaurants(callback) {
-        fetch(DBHelper.DATABASE_URL)
+        fetch(DBHelper.RESTAURANT_DATABASE_URL)
             .then(function (response) {
-                response = response.json();
-                return response;
+                var r = response.json();
+                return r;
             })
-            .then(restaurants => callback(null, restaurants));
+            .then(restaurants => {
+                callback(null, restaurants);
+            }).catch(function (error) {
+                console.log("fetchRestaurants error", error);
+            });
+    }
+
+    /**
+     * Fetch all reviews.
+     */
+    static fetchReviews(callback) {
+        fetch(DBHelper.REVIEWS_DATABASE_URL)
+            .then(function (response) {
+                var r = response.json();
+                return r;
+            })
+            .then(reviews => {
+                callback(null, reviews);
+            }).catch(function (error) {
+                console.log("fetchReviews error", error);
+            });
     }
 
     /**
      * Fetch a restaurant by its ID.
      */
     static fetchRestaurantById(id, callback) {
+
         // fetch all restaurants with proper error handling.
         DBHelper.fetchRestaurants((error, restaurants) => {
             if (error) {
@@ -42,6 +69,34 @@ class DBHelper {
             }
         });
     }
+
+    /**
+     * Fetch a reviews by restaurants ID.
+     */
+    static fetchReviewsById(id, callback) {
+
+        // fetch all reviews with proper error handling.
+        DBHelper.fetchReviews((error, reviews) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                const restaurantReviews = [];
+                let restaurant_id;
+                reviews.forEach(review => {
+                    restaurant_id = review.restaurant_id;
+                    if (id == restaurant_id) {
+                        restaurantReviews.push(review);
+                    }
+                });
+                if (restaurantReviews) { // Got the restaurant
+                    callback(null, restaurantReviews);
+                } else { // Review does not exist in the database
+                    callback('Restaurant does not exist', null);
+                }
+            }
+        });
+    }
+
 
     /**
      * Fetch restaurants by a cuisine type with proper error handling.
