@@ -10,7 +10,16 @@ import {
 
 const dbPromise = openDB('restaurants-reviews', 1, {
     upgrade(db, oldVersion, newVersion, transaction) {
-        const restaurantStore = db.createObjectStore('restaurants');
+        db.createObjectStore('restaurants', {
+            keyPath: 'id',
+            unique: true
+        });;
+        const reviewsStore = db.createObjectStore('reviews', {
+            autoIncrement: true
+        });
+        db.createObjectStore('offline', {
+            autoIncrement: true
+        });
     }
 });
 
@@ -76,44 +85,11 @@ self.addEventListener('activate', function (event) {
 
 
 /* Fetching cached files */
-const idbKeyVal = {
-    async get(key) {
-        return (await dbPromise).get('restaurants', key);
-    },
-    async set(key, val) {
-    return (await dbPromise).put('restaurants', val, key);
-  }
-};
-
-function manageDatabase(databaseUrl) {
-    return idbKeyVal.get('restaurants')
-        .then(function (restaurants) {
-            return (
-                restaurants ||
-                fetch(databaseUrl)
-                .then(function (response) {
-                    return response.json()
-                })
-                .then(function (json) {
-                    idbKeyVal.set('restaurants', json);
-                    return json;
-                })
-            );
-        })
-        .then(function (response) {
-            return new Response(JSON.stringify(response))
-        })
-        .catch(function (error) {
-            return new Response(error, {
-                status: 404,
-                statusText: 'my bad request'
-            });
-        });
-}
 
 self.addEventListener('fetch', function (event) {
 
     var requestUrl = new URL(event.request.url);
+    var request = event.request;
 
     if (requestUrl.origin === location.origin) {
         if (requestUrl.pathname.startsWith('/restaurant.html')) {
@@ -128,12 +104,95 @@ self.addEventListener('fetch', function (event) {
         } else {
             event.respondWith(caches.match(event.request).then(function (response) {
                 return response || fetch(event.request);
-            }));
+            }).catch(error => console.log(`Fetch error for ${requestUrl}: ${error}`)));
         }
     }
 
     if (requestUrl.port === '1337') {
-        const databaseUrl = event.request;
-        event.respondWith(manageDatabase(databaseUrl));
+        if (request.url.includes('reviews')) { 
+            event.respondWith(idbReviewResponse(request));
+        } else {
+            event.respondWith(idbRestaurantResponse(request));
+        }
     }
 });
+
+
+const idbKeyVal = {
+    get(store, key) {
+        return dbPromise.then(db => {
+            return db
+                .transaction(store)
+                .objectStore(store)
+                .get(key);
+        });
+    },
+    getAll(store) {
+        return dbPromise.then(db => {
+            return db
+                .transaction(store)
+                .objectStore(store)
+                .getAll();
+        });
+    },
+    set(store, val) {
+        return dbPromise.then(db => {
+            const tx = db.transaction(store, 'readwrite');
+            tx.objectStore(store).put(val);
+            return tx.complete;
+        });
+    }
+};
+
+let j = 0;
+
+function idbRestaurantResponse(request, id) {
+
+    return idbKeyVal.getAll('restaurants')
+        .then(restaurants => {
+            if (restaurants.length) {
+                return restaurants;
+            }
+            return fetch(request)
+                .then(response => response.json())
+                .then(json => {
+                    json.forEach(restaurant => {
+                        idbKeyVal.set('restaurants', restaurant);
+                    });
+                    return json;
+                });
+        })
+        .then(response => new Response(JSON.stringify(response)))
+        .catch(error => {
+            return new Response(error, {
+                status: 404,
+                statusText: 'my bad request'
+            });
+        });
+}
+
+let k = 0;
+
+function idbReviewResponse(request, id) {
+    return idbKeyVal.getAll('reviews')
+        .then(reviews => {
+            if (reviews.length) {
+                return reviews;
+            }
+            return fetch(request)
+                .then(response => response.json())
+                .then(json => {
+                    json.forEach(review => {
+                        idbKeyVal.set('reviews', review);
+                    });
+                    return json;
+                });
+        })
+        .then(response => new Response(JSON.stringify(response)))
+        .catch(error => {
+            return new Response(error, {
+                status: 404,
+                statusText: 'my bad request'
+            });
+        });
+}
