@@ -265,7 +265,10 @@ a.skip-link:focus {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    /* for styling favourite restaurant toggle button */
+    position: relative; 
 }
+    
 
 #restaurants-list .restaurant-img {
     background-color: #ccc;
@@ -418,6 +421,35 @@ a.skip-link:focus {
     color: #666;
 }
 
+
+/* Favourite restaurant toggle */
+
+.fav-restaurant {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    border: none;
+    background: white;
+    font-size: 3em;
+    line-height: 1em;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+
+.fav-restaurant:focus, .fav-restaurant:hover {
+    color:BLACK;
+    cursor: pointer;
+    outline: none;
+}
+
+.fav-restaurant.fav-restaurant-active {
+    color:#b74400;
+}
+
+
+
 /* Review content */
 
 #reviews-list li p.reviewer {
@@ -507,6 +539,8 @@ textarea#comment {
     width: calc(100% - 40px);
     height: 250px;
     padding: 1em;
+    font-size: 1.1em;
+
 }
 
 input#submit {
@@ -523,6 +557,27 @@ input#submit {
     outline: none;
     float: right;
 
+}
+
+input#submit:hover,
+input#submit:focus {
+    background-color: #e89701;
+    cursor: pointer;
+}
+
+#form-alert {
+    display: block;
+    font-size: 1.4em;
+    line-height: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: calc(100% - 40px);
+    margin: 30px 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    color: #e05f00;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 

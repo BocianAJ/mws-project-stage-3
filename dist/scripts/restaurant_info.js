@@ -2,6 +2,14 @@ let restaurant;
 var newMap;
 
 /**
+ * Add offline reviews
+ */
+
+window.addEventListener('load', function () {
+  DBHelper.addOfflineReviews();
+});
+
+/**
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -99,7 +107,12 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
         fillRestaurantHoursHTML();
     }
 
+    // add action to submit button in review form
+    const reviewForm = document.getElementById('review-form');
+    reviewForm.addEventListener('submit', addReview);
+
 }
+
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -153,7 +166,7 @@ createReviewHTML = (review) => {
     name.className = 'reviewer';
     li.appendChild(name);
     const date = document.createElement('p');
-    const reviewDate = new Date(review.updatedAt).toLocaleDateString();
+    const reviewDate = new Date(review.createdAt).toLocaleDateString();
     date.innerHTML = reviewDate;
     date.className = 'review-date';
     li.appendChild(date);
@@ -168,6 +181,36 @@ createReviewHTML = (review) => {
     li.appendChild(comments);
 
     return li;
+}
+
+addReview = (e) => {
+    e.preventDefault();
+
+    let restaurantId = getParameterByName('id');
+    let name = document.getElementById('name').value;
+    let rating;
+    let comments = document.getElementById('comment').value;
+    rating = document.querySelector('#rating option:checked').value;
+    const review = [name, rating, comments, restaurantId];
+
+    //Add data to DOM
+    const frontEndReview = {
+        restaurant_id: parseInt(review[3]),
+        rating: parseInt(review[1]),
+        name: review[0],
+        comments: review[2].substring(0, 300),
+        createdAt: new Date()
+    }
+    console.log(frontEndReview.createdAt);
+    const ul = document.getElementById('reviews-list');
+    ul.appendChild(createReviewHTML(frontEndReview));
+
+    //Send review to backend
+    DBHelper.addReview(frontEndReview);
+
+    document.getElementById('review-form').reset();
+
+
 }
 
 /**

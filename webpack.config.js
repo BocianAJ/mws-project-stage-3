@@ -2,13 +2,13 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/sw.js',
+    entry: './src/dbhelper.js',
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist'
     },
     output: {
-        filename: 'sw.js',
+        filename: 'dbhelper.js',
         path: path.resolve(__dirname, 'dist')
     }
 };

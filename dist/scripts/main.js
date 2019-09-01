@@ -1,9 +1,15 @@
-
 let restaurants,
     neighborhoods,
     cuisines
 var newMap
 var markers = []
+
+/**
+ * Add offline reviews.
+ */
+window.addEventListener('load', function () {
+    DBHelper.addOfflineReviews();
+});
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -170,9 +176,40 @@ createRestaurantHTML = (restaurant) => {
     const more = document.createElement('a');
     more.innerHTML = 'View Details';
     more.href = DBHelper.urlForRestaurant(restaurant);
-    li.append(more)
+    li.append(more);
 
-    return li
+    //Add favourite restaurant toggle
+    let favRestaurant = document.createElement('button');
+
+    favRestaurant.className = 'fav-restaurant';
+    favRestaurant.innerHTML = '&#x2605';
+    favRestaurant.setAttribute('aria-label', 'favourite restaurant');
+    li.append(favRestaurant);
+
+    const favState = restaurant.is_favorite;
+    if (favState === 'true') {
+        favRestaurant.classList.add('fav-restaurant-active');
+        favRestaurant.setAttribute('aria-pressed', 'true');
+    } else {
+        favRestaurant.setAttribute('aria-pressed', 'false');
+    }
+
+    favRestaurant.addEventListener('click', (event) => {
+        event.preventDefault();
+        const favState = restaurant.is_favorite;
+        const id = restaurant.id.toString();
+        if (favRestaurant.getAttribute('aria-pressed') === 'true') {
+            favRestaurant.setAttribute('aria-pressed', 'false');
+            favRestaurant.classList.remove('fav-restaurant-active');
+            DBHelper.removeFav(id);
+        } else {
+            favRestaurant.setAttribute('aria-pressed', 'true');
+            favRestaurant.classList.add('fav-restaurant-active');
+            DBHelper.addFav(id);
+        }
+
+    });
+    return li;
 }
 
 /**

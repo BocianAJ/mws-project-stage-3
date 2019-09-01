@@ -63,10 +63,11 @@
             <!-- Beginning add review form -->
             <h2>Add review</h2>
             <form id="review-form">
+                <p id="form-alert"></p>
                 <label for="name">Name: </label>
                 <input id="name" name="name" type="text" />
                 <label for="rating">Restaurant rating: </label>
-                <select id="rating" name="rating" aria-label="Restaurant rating selection">
+                <select id="rating" aria-labelledby="Select rating" name="rating" aria-label="Restaurant rating selection">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -92,7 +93,7 @@
 
     <!-- Beginning scripts -->
     <!-- Database helpers -->
-    <script type="text/javascript" src="scripts/dbhelper.js"></script>
+    <script type="text/javascript" src="dbhelper.js"></script>
     <!-- Main javascript file -->
     <script type="text/javascript" src="scripts/restaurant_info.js"></script>
     <script src="scripts/leaflet-src.js"></script>
